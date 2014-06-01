@@ -64,8 +64,8 @@ public class PointLocationLayer extends OsmandMapLayer {
 
 
 	
-	private RectF getHeadingRect(int locationX, int locationY){
-		int rad = Math.min(3 * view.getWidth() / 8, 3 * view.getHeight() / 8);
+	private RectF getHeadingRect(int locationX, int locationY, float density){
+		int rad = (int) (35 * density);
 		return new RectF(locationX - rad, locationY - rad, locationX + rad, locationY + rad);
 	}
 	
@@ -103,7 +103,7 @@ public class PointLocationLayer extends OsmandMapLayer {
 			}
 			Float heading = locationProvider.getHeading();
 			if (heading != null && view.getSettings().SHOW_VIEW_ANGLE.get()) {
-				canvas.drawArc(getHeadingRect(locationX, locationY), heading - HEADING_ANGLE / 2 - 90, HEADING_ANGLE, true, headingPaint);
+				canvas.drawArc(getHeadingRect(locationX, locationY, box.getDensity()), heading - HEADING_ANGLE / 2 - 90, HEADING_ANGLE, true, headingPaint);
 			}
 
 			if (isBearing) {
